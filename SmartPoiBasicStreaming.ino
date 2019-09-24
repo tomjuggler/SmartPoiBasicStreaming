@@ -25,7 +25,7 @@
 //////////////////////////////////////////FastLED code:////////////
 #include "FastLED.h"
 // How many leds in your strip?
-#define NUM_LEDS 37
+#define NUM_LEDS 36
 //#define NUM_LEDS 73
 
 #define NUM_PX 36
@@ -125,14 +125,14 @@ void loop() {
     }
 
     //FastLED.delay(2); //not just for emulator!
-    LEDS.show();
-    FastLED.delay(1);
+//    LEDS.show();
+//    FastLED.delay(10);
 //    delay(1);
     ///////////////////////////////////end FastLed Code//////////////
 if (emulated) {
     SendToProcessing();
 //    delay(1);
-    FastLED.delay(1000 / UPDATES_PER_SECOND);
+//    FastLED.delay(10000 / UPDATES_PER_SECOND);
   }
     // send a reply, to the IP address and port that sent us the packet we received
     //    Udp.beginPacket(Udp.remoteIP(), Udp.remotePort());
@@ -224,9 +224,9 @@ void SendToProcessing() {
     Serial.println("-------------------------------------------------------");
     for (uint16_t d = 0; d < NUM_LEDS; d++) {
       Serial.print("p: "); Serial.print(d);
-      Serial.print("\tr: "); Serial.print(leds[d].g);
-      Serial.print("\tg: "); Serial.print(leds[d].b);
-      Serial.print("\tb: "); Serial.println(leds[d].r);
+      Serial.print("\tr: "); Serial.print(leds[d].r);
+      Serial.print("\tg: "); Serial.print(leds[d].g);
+      Serial.print("\tb: "); Serial.println(leds[d].b);
     }
     Serial.println(" ");
     delay(500);  // Add some extra delay while testing.
@@ -234,9 +234,9 @@ void SendToProcessing() {
   else {  // Send ALL the pixel data to Processing!
     for (uint16_t d = 0; d < NUM_LEDS; d++) {
       Serial.write(d);          // Pixel number
-      Serial.write(leds[d].g);  // Red channel data
-      Serial.write(leds[d].b);  // Green channel data
-      Serial.write(leds[d].r);  // Blue channel data
+      Serial.write(leds[d].r);  // Red channel data
+      Serial.write(leds[d].g);  // Green channel data
+      Serial.write(leds[d].b);  // Blue channel data
     }
     delay(sendDelay);  // Delay to slow things down if needed.
   }
